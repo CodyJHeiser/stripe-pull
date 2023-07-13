@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { stringifyNested, delay } from "../helpers.js";
+import moment from 'moment-timezone';
 
 /**
  * A class representing a Stripe client.
@@ -25,17 +26,40 @@ class Stripe {
     }
 
     /**
-     * Set the start date for API requests.
-     * @param {string} date - The start date in YYYY-MM-DD format.
-     * @throws Will throw an error if the date format is not valid.
+     * Sets the `startDate` property to the specified date or to the current date and time.
+     *
+     * @param {string} [date=null] - The start date in "YYYY-MM-DD" format. 
+     *                                If not provided, the function sets the `startDate` to the current date and time 
+     *                                (1 hour and 15 minutes before the current hour in Central Standard Time (CST)).
+     * @throws Will throw an error if the provided date is not in the correct "YYYY-MM-DD" format.
+     * @returns {void}
+     *
+     * @example
+     * // Set the start date to July 1, 2023 00:00:00.
+     * stripe.setStartDate("2023-07-01");
+     * @example
+     * // Set the start date to the current date and time in CST, minus 1 hour and 15 minutes.
+     * stripe.setStartDate();
      */
-    setStartDate(date) {
-        const regex = /^\d{4}-\d{2}-\d{2}$/;
-        if (!regex.test(date)) {
-            throw new Error("Invalid date format. Expected format: YYYY-MM-DD");
+    setStartDate(date = null) {
+        let startDate;
+        if (date) {
+            const regex = /^\d{4}-\d{2}-\d{2}$/;
+            if (!regex.test(date)) {
+                throw new Error("Invalid date format. Expected format: YYYY-MM-DD");
+            }
+            startDate = moment.tz(date, "America/Chicago");
+        } else {
+            // get current time in Chicago, considering DST
+            startDate = moment().tz("America/Chicago").subtract(1, 'hours').subtract(15, 'minutes');
         }
-        const unixTime = new Date(date).getTime() / 1000;
+
+        // Convert to UNIX time format
+        const unixTime = startDate.unix();
+
+        // Set the startDate prototype value
         this.startDate = unixTime;
+        console.log(unixTime);
     }
 
     /**

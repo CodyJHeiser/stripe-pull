@@ -5,7 +5,7 @@ import BigQueryUploader from 'upload-google-storage-to-bigquery';
 
 // Setup the Strip api caller
 const stripe = new Stripe(process.env.STRIPE_TOKEN);
-stripe.setStartDate("2023-07-12");
+stripe.setStartDate();
 stripe.setSelectSQL("customer.subscription.*");
 
 // Setup the BigQuery/GCS api caller

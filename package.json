@@ -24,6 +24,7 @@
     "fs": "^0.0.1-security",
     "json2csv": "^6.0.0-alpha.2",
     "jsonfile": "^6.1.0",
+    "moment-timezone": "^0.5.43",
     "querystring": "^0.2.1",
     "upload-google-storage-to-bigquery": "^2.3.0"
   }
