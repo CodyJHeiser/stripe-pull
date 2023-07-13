@@ -1,0 +1,30 @@
+{
+  "name": "stripe-pull",
+  "version": "1.0.0",
+  "description": "Pull Stripe data from API",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/CodyJHeiser/stripe-pull.git"
+  },
+  "author": "Cody Heiser",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CodyJHeiser/stripe-pull/issues"
+  },
+  "homepage": "https://github.com/CodyJHeiser/stripe-pull#readme",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "dotenv": "^16.3.1",
+    "fs": "^0.0.1-security",
+    "json2csv": "^6.0.0-alpha.2",
+    "jsonfile": "^6.1.0",
+    "querystring": "^0.2.1",
+    "upload-google-storage-to-bigquery": "^2.3.0"
+  }
+}
