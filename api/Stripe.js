@@ -98,9 +98,10 @@ class Stripe {
      * @returns {Promise<Object[]>} The data received from the API.
      * @throws Will throw an error if the request fails.
      */
-    request = async (previousId = null, retries = 1) => {
+    request = async (previousId = null, retries = 24) => {
         try {
             const { data, data: { has_more }, status } = await axios.request(this.getUrl(previousId), this.config);
+
             let results = data.data;
             if (status === 200 && has_more && retries) {
                 const lastEventId = results.at(-1).id;

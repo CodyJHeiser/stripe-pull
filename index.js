@@ -14,6 +14,7 @@ const bigQuery = new BigQueryUploader("service_account_key.json");
 (async () => {
     const data = await stripe.request();
     const dataDrilled = data.map(row => row.data.object);
+    console.log(dataDrilled);
 
     // Format and export the data
     const exportFileNames = "exports/output";

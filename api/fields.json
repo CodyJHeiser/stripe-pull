@@ -1,0 +1,82 @@
+{
+    "id": {
+        "text": "Identifier of the subscription object.",
+        "type": "STRING"
+    },
+    "object": {
+        "text": "Specifies the object type which is 'subscription'.",
+        "type": "STRING"
+    },
+    "application": {
+        "text": "Identifier of the application object.",
+        "type": "STRING"
+    },
+    "cancel_at": {
+        "text": "Time canceled.",
+        "type": "INTEGER"
+    },
+    "cancel_at_period_end": {
+        "text": "Cancel period over.",
+        "type": "BOOLEAN"
+    },
+    "canceled_at": {
+        "text": "Cancel UNIX time.",
+        "type": "INTEGER"
+    },
+    "cancellation_details": {
+        "text": "Cancel Details.",
+        "type": "JSON"
+    },
+    "created": {
+        "text": "Unix timestamp when the object was created.",
+        "type": "INTEGER"
+    },
+    "currency": {
+        "text": "Currency used in the transaction, here it is 'usd'.",
+        "type": "STRING"
+    },
+    "current_period_end": {
+        "text": "Unix timestamp for the end of the current billing period.",
+        "type": "INTEGER"
+    },
+    "current_period_start": {
+        "text": "Unix timestamp for the start of the current billing period.",
+        "type": "INTEGER"
+    },
+    "customer": {
+        "text": "Identifier of the customer object.",
+        "type": "STRING"
+    },
+    "latest_invoice": {
+        "text": "Identifier of the latest invoice object.",
+        "type": "STRING"
+    },
+    "metadata": {
+        "text": "A set of key-value pairs that can be attached to the object. This can be useful for storing additional, flexible metadata on the object. Here we have keys like 'netsuite_CF_funnel_id' and 'netsuite_CF_funnel_name'.",
+        "type": "JSON"
+    },
+    "plan": {
+        "text": "The plan the subscription is subscribed to. It contains fields like id, object, active, amount, currency, interval, livemode, and usage_type.",
+        "type": "JSON"
+    },
+    "quantity": {
+        "text": "Number of subscriptions.",
+        "type": "INTEGER"
+    },
+    "start_date": {
+        "text": "Unix timestamp when the subscription started.",
+        "type": "INTEGER"
+    },
+    "status": {
+        "text": "Current status of the subscription ('trialing', 'active', etc.).",
+        "type": "STRING"
+    },
+    "trial_end": {
+        "text": "Unix timestamp when the trial period ends.",
+        "type": "INTEGER"
+    },
+    "trial_start": {
+        "text": "Unix timestamp when the trial period starts.",
+        "type": "INTEGER"
+    }
+}

@@ -26,6 +26,6 @@
     "jsonfile": "^6.1.0",
     "moment-timezone": "^0.5.43",
     "querystring": "^0.2.1",
-    "upload-google-storage-to-bigquery": "^2.3.0"
+    "upload-google-storage-to-bigquery": "2.4"
   }
 }

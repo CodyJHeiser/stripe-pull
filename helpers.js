@@ -1,6 +1,9 @@
 import { Parser } from 'json2csv';
 import jsonfile from "jsonfile";
 import fs from "fs";
+import { promisify } from 'util';
+
+const readFile = promisify(fs.readFile);
 
 /**
  * Convert a nested object into a query string. 
@@ -70,14 +73,37 @@ export const flattenObject = (obj, parentKey = '', depth = 1) => {
  * @returns {Promise} A Promise that resolves when the files have been written.
  */
 export const exportData = async (data, filename) => {
-    // Flatten the objects
-    const flattenedData = data.map((item) => flattenObject(item));
+    const typeConversions = {
+        'STRING': String,
+        'INTEGER': Number,
+        'BOOLEAN': Boolean,
+        // For JSON type, check if the value is already an object. If so, pass it as is.
+        // Otherwise, try to parse it.
+        'JSON': (value) => typeof value === 'object' ? value : JSON.parse(value)
+    };
+
+    // Read data from fields.json
+    const fields = JSON.parse(fs.readFileSync('./api/fields.json', 'utf8'));
+
+    // Validate and convert the data
+    const convertedData = data.map(item => {
+        return Object.keys(item).reduce((result, key) => {
+            if (fields[key] && typeConversions[fields[key].type]) {
+                try {
+                    result[key] = typeConversions[fields[key].type](item[key]);
+                } catch (err) {
+                    console.warn(`Failed to convert field "${key}" of type "${fields[key].type}" with value "${item[key]}"`);
+                }
+            }
+            return result;
+        }, {});
+    });
 
     // Export to TSV
     const tsvParser = new Parser({ delimiter: '\t' });
-    const tsv = tsvParser.parse(flattenedData);
+    const tsv = tsvParser.parse(convertedData);
     await fs.promises.writeFile(`${filename}.tsv`, tsv);
 
     // Export to JSON
-    jsonfile.writeFileSync(`${filename}.json`, flattenedData, { spaces: 2 });
+    jsonfile.writeFileSync(`${filename}.json`, convertedData, { spaces: 2 });
 };
